@@ -80,6 +80,8 @@ web_modules/
 .env.production.local
 .env.local
 .env.*
+atlas-credentials.env
+*.env
 
 # PM2 configs (contains database credentials and JWT secrets)
 ecosystem.config.js
