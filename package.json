@@ -1,0 +1,16 @@
+{
+  "name": "label-generator-erp",
+  "version": "1.0.0",
+  "description": "Unified build and run scripts for single VPS deployment",
+  "scripts": {
+    "install:client": "npm install --prefix client",
+    "install:server": "npm install --prefix server",
+    "install-all": "npm run install:server && npm run install:client",
+    "build:client": "npm run build --prefix client",
+    "build": "npm run build:client",
+    "start": "npm start --prefix server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
