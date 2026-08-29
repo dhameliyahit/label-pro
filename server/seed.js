@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 
 const seedAdminUser = async () => {
-  const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/label-generator';
+  const mongoURI = 'mongodb+srv://heetdhameliya59_db_user:mhjLOw8JNyntUMfe@label-pro.eds5053.mongodb.net/label-generator';
   
   try {
     console.log('Connecting to database...');
