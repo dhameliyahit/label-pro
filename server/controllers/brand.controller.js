@@ -49,7 +49,7 @@ const getBrandById = async (req, res) => {
 // @route   POST /api/brands
 // @access  Private
 const createBrand = async (req, res) => {
-  const { name, address, city, state, pincode, email, phone } = req.body;
+  const { name, address, city, state, pincode, email, phone, mfgBy } = req.body;
 
   if (!name || !address || !city || !state || !pincode || !email || !phone) {
     return res.status(400).json({ message: 'Please provide all fields' });
@@ -63,7 +63,8 @@ const createBrand = async (req, res) => {
       state,
       pincode,
       email,
-      phone
+      phone,
+      mfgBy
     });
 
     const createdBrand = await brand.save();
@@ -78,7 +79,7 @@ const createBrand = async (req, res) => {
 // @route   PUT /api/brands/:id
 // @access  Private
 const updateBrand = async (req, res) => {
-  const { name, address, city, state, pincode, email, phone } = req.body;
+  const { name, address, city, state, pincode, email, phone, mfgBy } = req.body;
 
   try {
     const brand = await Brand.findById(req.params.id);
@@ -94,6 +95,9 @@ const updateBrand = async (req, res) => {
     brand.pincode = pincode || brand.pincode;
     brand.email = email || brand.email;
     brand.phone = phone || brand.phone;
+    if (mfgBy !== undefined) {
+      brand.mfgBy = mfgBy;
+    }
 
     const updatedBrand = await brand.save();
     res.json(updatedBrand);

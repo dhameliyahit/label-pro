@@ -36,6 +36,10 @@ const BrandSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true
+  },
+  mfgBy: {
+    type: String,
+    trim: true
   }
 }, {
   timestamps: true

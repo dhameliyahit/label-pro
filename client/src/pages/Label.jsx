@@ -296,7 +296,7 @@ const Label = () => {
               <div className="bg-zinc-950 p-4 border border-zinc-800 rounded-lg text-xs text-zinc-400 mt-6 flex items-start gap-3">
                 <Sparkles className="w-4.5 h-4.5 text-zinc-500 shrink-0" />
                 <span>
-                  The label will contain manufactured details and consumer service contacts of <strong>{selectedStock.brand?.name}</strong>.
+                  The label will contain manufactured details of <strong>{selectedStock.brand?.mfgBy || selectedStock.brand?.name}</strong> and consumer service contacts of <strong>{selectedStock.brand?.name}</strong>.
                 </span>
               </div>
             )}

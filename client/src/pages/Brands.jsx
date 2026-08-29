@@ -35,6 +35,7 @@ const Brands = () => {
   const [pincode, setPincode] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [mfgBy, setMfgBy] = useState('');
 
   const fetchBrands = async () => {
     setLoading(true);
@@ -67,6 +68,7 @@ const Brands = () => {
     setPincode('');
     setEmail('');
     setPhone('');
+    setMfgBy('');
     setShowModal(true);
   };
 
@@ -79,6 +81,7 @@ const Brands = () => {
     setPincode(brand.pincode);
     setEmail(brand.email);
     setPhone(brand.phone);
+    setMfgBy(brand.mfgBy || '');
     setShowModal(true);
   };
 
@@ -90,7 +93,7 @@ const Brands = () => {
       return;
     }
 
-    const payload = { name, address, city, state, pincode, email, phone };
+    const payload = { name, address, city, state, pincode, email, phone, mfgBy };
 
     try {
       if (editingBrand) {
@@ -211,6 +214,14 @@ const Brands = () => {
                 </div>
 
                 <div className="space-y-2.5 text-xs text-zinc-400">
+                  {brand.mfgBy && (
+                    <div className="flex items-start gap-2.5">
+                      <Award className="w-4 h-4 text-zinc-550 shrink-0 mt-0.5" />
+                      <span>
+                        <span className="text-zinc-500 font-medium">Mfg By:</span> <span className="text-zinc-300">{brand.mfgBy}</span>
+                      </span>
+                    </div>
+                  )}
                   <div className="flex items-start gap-2.5">
                     <MapPin className="w-4 h-4 text-zinc-550 shrink-0 mt-0.5" />
                     <span>
@@ -264,6 +275,19 @@ const Brands = () => {
                   placeholder="Enter Brand Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="block w-full px-3 py-2 border border-zinc-800 rounded-lg bg-zinc-950 text-white placeholder-zinc-700 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-400 focus:border-zinc-400 transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-zinc-400 mb-1">
+                  Manufactured By (Optional)
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. SHIVAM FABRICS (defaults to brand name if empty)"
+                  value={mfgBy}
+                  onChange={(e) => setMfgBy(e.target.value)}
                   className="block w-full px-3 py-2 border border-zinc-800 rounded-lg bg-zinc-950 text-white placeholder-zinc-700 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-400 focus:border-zinc-400 transition-all"
                 />
               </div>

@@ -122,14 +122,14 @@ const generateLabelPDF = async (req, res) => {
       spacing: {
         rowGap: 1.5,
         mrpTotal: 15,
-        beforeBarcode: 6,
+        beforeBarcode: 10,
         belowBarcode: 5,
-        belowBarcodeText: 6,
-        belowDivider: 6,
+        belowBarcodeText: 10,
+        belowDivider: 10,
         belowHeader: 7.5,
         belowConsumerBrand: 6.5,
-        belowMfgSection: 8,
-        belowConsumerSection: 6,
+        belowMfgSection: 12,
+        belowConsumerSection: 8,
         contactGap: 6.5
       }
     };
@@ -170,13 +170,13 @@ const generateLabelPDF = async (req, res) => {
 
       // Manufactured By space
       h += cfg.spacing.belowHeader;
+      h += doc.font(cfg.fontFamily.regular).fontSize(cfg.fontSize.details).heightOfString(brand.mfgBy || brand.name, { width: cfg.width.fullWidth }) + 1.0;
       h += doc.font(cfg.fontFamily.regular).fontSize(cfg.fontSize.details).heightOfString(addressStr, { width: cfg.width.fullWidth });
       h += cfg.spacing.belowMfgSection;
 
       // Consumer Service Contact space
       h += cfg.spacing.belowHeader;
-      h += doc.font(cfg.fontFamily.bold).fontSize(cfg.fontSize.mrpValue).heightOfString(brand.name, { width: cfg.width.fullWidth });
-      h += cfg.spacing.belowConsumerBrand;
+      h += doc.font(cfg.fontFamily.regular).fontSize(cfg.fontSize.details).heightOfString(brand.name, { width: cfg.width.fullWidth }) + 1.0;
       h += doc.font(cfg.fontFamily.regular).fontSize(cfg.fontSize.details).heightOfString(addressStr, { width: cfg.width.fullWidth });
       h += cfg.spacing.belowConsumerSection;
 
@@ -224,9 +224,6 @@ const generateLabelPDF = async (req, res) => {
       config.spacing.belowConsumerSection += distributedGap;
     }
 
-    // Draw Outer Card/Label Border outline (0.75 points)
-    doc.rect(4, 4, 141.73 - 8, 255.12 - 8).lineWidth(0.75).strokeColor('#000000').stroke();
-
     // Helper to draw a key-value row
     const drawRow = (key, value, y) => {
       doc.font(config.fontFamily.bold).fontSize(config.fontSize.mainKey).text(key, 8, y, { width: config.width.keyCol });
@@ -273,6 +270,8 @@ const generateLabelPDF = async (req, res) => {
     // Manufactured By
     doc.font(config.fontFamily.bold).fontSize(config.fontSize.header).text('Manufactured By :', 8, currentY, { width: config.width.fullWidth });
     currentY += config.spacing.belowHeader;
+    doc.font(config.fontFamily.regular).fontSize(config.fontSize.details).text(brand.mfgBy || brand.name, 8, currentY, { width: config.width.fullWidth });
+    currentY += config.fontSize.details + 1.0;
     doc.font(config.fontFamily.regular).fontSize(config.fontSize.details).text(addressStr, 8, currentY, { width: config.width.fullWidth });
     currentY += doc.heightOfString(addressStr, { width: config.width.fullWidth }) + config.spacing.belowMfgSection;
 
@@ -286,8 +285,8 @@ const generateLabelPDF = async (req, res) => {
     // Consumer Service Contact
     doc.font(config.fontFamily.bold).fontSize(config.fontSize.header).text('Consumer Service Contact :', 8, currentY, { width: config.width.fullWidth });
     currentY += config.spacing.belowHeader;
-    doc.font(config.fontFamily.bold).fontSize(config.fontSize.mrpValue).text(brand.name, 8, currentY, { width: config.width.fullWidth });
-    currentY += config.spacing.belowConsumerBrand;
+    doc.font(config.fontFamily.regular).fontSize(config.fontSize.details).text(brand.name, 8, currentY, { width: config.width.fullWidth });
+    currentY += config.fontSize.details + 1.0;
     doc.font(config.fontFamily.regular).fontSize(config.fontSize.details).text(addressStr, 8, currentY, { width: config.width.fullWidth });
     currentY += doc.heightOfString(addressStr, { width: config.width.fullWidth }) + config.spacing.belowConsumerSection;
     
