@@ -285,7 +285,7 @@ const generateLabelPDF = async (req, res) => {
     // Consumer Service Contact
     doc.font(config.fontFamily.bold).fontSize(config.fontSize.header).text('Consumer Service Contact :', 8, currentY, { width: config.width.fullWidth });
     currentY += config.spacing.belowHeader;
-    doc.font(config.fontFamily.regular).fontSize(config.fontSize.details).text(brand.name, 8, currentY, { width: config.width.fullWidth });
+    doc.font(config.fontFamily.regular).fontSize(config.fontSize.details).text(brand.mfgBy || brand.name, 8, currentY, { width: config.width.fullWidth });
     currentY += config.fontSize.details + 1.0;
     doc.font(config.fontFamily.regular).fontSize(config.fontSize.details).text(addressStr, 8, currentY, { width: config.width.fullWidth });
     currentY += doc.heightOfString(addressStr, { width: config.width.fullWidth }) + config.spacing.belowConsumerSection;
